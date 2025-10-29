@@ -68,7 +68,7 @@ resource "aws_ecs_task_definition" "nestjs_task" {
 
     logConfiguration = {
       logDriver = "awslogs"
-      option = {
+      options = {
         awslogs-group         = aws_cloudwatch_log_group.nestjs_app.name
         awslogs-region        = var.aws_region
         awslogs-stream-prefix = "ecs"
@@ -199,7 +199,7 @@ resource "aws_iam_instance_profile" "ecs_ec2_instance_profile" {
 }
 
 resource "aws_iam_role" "ecs_ec2_role" {
-  name = "${var.environment}-ecs-ec2-role"
+  name = "${var.environment}-ecs-ec2-container-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -396,4 +396,24 @@ resource "aws_lb" "nestjs_alb" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
   subnets            = aws_subnet.public[*].id
+}
+
+output "ecr_repository_url" {
+  description = "ECR repository URL"
+  value       = aws_ecr_repository.nestjs_app.repository_url
+}
+
+output "load_balancer_dns" {
+  description = "Load Balancer DNS name"
+  value       = aws_lb.nestjs_alb.dns_name
+}
+
+output "cluster_name" {
+  description = "ECS cluster name"
+  value       = aws_ecs_cluster.nestjs_cluster.name
+}
+
+output "service_name" {
+  description = "ECS service name"
+  value       = aws_ecs_service.nestjs_service.name
 }
