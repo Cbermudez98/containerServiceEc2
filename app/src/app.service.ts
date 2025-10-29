@@ -14,7 +14,6 @@ export class AppService {
     const hour = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-
     return `${date.toISOString().slice(0, 'YYYY-MM-DD'.length)} ${hour}:${minutes}:${seconds}`;
   }
 }
