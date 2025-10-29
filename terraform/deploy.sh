@@ -20,4 +20,4 @@ docker tag $ECR_REPO:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$E
 docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:latest
 
 # Force new deployment
-aws ecs update-service --cluster container-cluster-dev --service nestjs-container-service --force-new-deployment
+aws ecs update-service --cluster container-cluster-dev --service nestjs-container-service-dev --force-new-deployment
