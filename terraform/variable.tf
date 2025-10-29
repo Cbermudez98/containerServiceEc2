@@ -8,7 +8,7 @@ variable "aws_ecr_repository_name" {
   default = "container-repository"
 }
 
-variable "cluster-name" {
+variable "cluster_name" {
   type    = string
   default = "container-cluster"
 }
@@ -48,10 +48,16 @@ variable "service_name" {
   default = "nestjs-container-service"
 }
 
+variable "desired_capacity" {
+  type    = number
+  default = 1
+}
+
 variable "desired_count" {
   type    = number
   default = 1
 }
+
 
 variable "vpc_cidr" {
   description = "VPC CIDR block"

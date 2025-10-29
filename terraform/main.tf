@@ -10,7 +10,7 @@ resource "aws_ecr_repository" "nestjs_app" {
 
 # ECS Cluster
 resource "aws_ecs_cluster" "nestjs_cluster" {
-  name = "${var.cluster-name}-${var.environment}"
+  name = "${var.cluster_name}-${var.environment}"
 
   setting {
     name  = "containerInsights"
@@ -146,7 +146,7 @@ resource "aws_ecs_service" "nestjs_service" {
 
 # ECS AutoScaling group
 resource "aws_autoscaling_group" "ecs_cluster" {
-  name                      = "${var.cluster-name}-asg-container-${var.environment}"
+  name                      = "${var.cluster_name}-asg-container-${var.environment}"
   vpc_zone_identifier       = aws_subnet.private[*].id
   min_size                  = var.min_size
   max_size                  = var.max_size
@@ -162,7 +162,7 @@ resource "aws_autoscaling_group" "ecs_cluster" {
 }
 
 resource "aws_launch_template" "ecs_ec2" {
-  name_prefix   = "${var.cluster-name}-${var.environment}"
+  name_prefix   = "${var.cluster_name}-${var.environment}"
   image_id      = data.aws_ami.ecs_optimized.id
   instance_type = var.instance_type
   key_name      = var.key_name
